@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE=nest_mongoose
+    ports:
+      - 28017:27017
+  
+  app:
+    build: .
+    container_name: nestjs-app
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/nest_mongoose
+    depends_on:
+      - mongodb
+
